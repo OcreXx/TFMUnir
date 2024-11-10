@@ -27,7 +27,7 @@ jobs:
           snyk auth $env:SNYK_TOKEN
           
           # Ejecuta el análisis de Snyk
-          snyk test --all-projects --severity-threshold=high
+          snyk code test 
 
       - name: Stop and Clean Up DVWA
         if: always()
