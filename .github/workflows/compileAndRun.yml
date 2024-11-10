@@ -1,0 +1,33 @@
+# .github/workflows/build-and-run-dvwa.yml
+name: Build and Run DVWA
+
+on:
+  push:
+    branches:
+      - main  # Cambia esto a la rama donde trabajas en DVWA
+  workflow_dispatch:
+
+jobs:
+  build-and-run:
+    runs-on: [self-hosted, windows]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        run: |
+          Start-Service docker
+
+      - name: Build DVWA Docker image
+        run: |
+          docker build -t dvwa-app .
+
+      - name: Run DVWA in Docker
+        run: |
+          docker run -d -p 8080:80 --name dvwa-app dvwa-app
+
+      - name: Verify DVWA is running
+        run: |
+          curl -I http://localhost:8080
+
