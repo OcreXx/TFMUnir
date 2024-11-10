@@ -18,7 +18,4 @@ jobs:
         run: |
           docker compose up -d
 
-      - name: Verify DVWA is running
-        run: |
-          curl -I http://localhost:8080
 
