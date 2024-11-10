@@ -1,10 +1,9 @@
-# .github/workflows/build-and-run-dvwa.yml
 name: Build and Run DVWA
 
 on:
   push:
     branches:
-      - main  # Cambia esto a la rama donde trabajas en DVWA
+      - main 
   workflow_dispatch:
 
 jobs:
@@ -14,10 +13,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Set up Docker
-        run: |
-          Start-Service docker
 
       - name: Build DVWA Docker image
         run: |
