@@ -16,11 +16,7 @@ jobs:
 
       - name: Build DVWA Docker image
         run: |
-          docker build -t dvwa-app .
-
-      - name: Run DVWA in Docker
-        run: |
-          docker run -d -p 8080:80 --name dvwa-app dvwa-app
+          docker compose up -d.
 
       - name: Verify DVWA is running
         run: |
