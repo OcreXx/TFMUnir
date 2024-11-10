@@ -17,10 +17,19 @@ jobs:
       - name: Build DVWA Docker image
         run: |
           docker compose up -d
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/php@master
+          
+      - name: Authenticate and Scan DVWA image with Snyk
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          docker run --rm \
+            -e SNYK_TOKEN="$SNYK_TOKEN" \
+            snyk/snyk-cli:docker snyk container test ghcr.io/digininja/dvwa:latest
+
+      - name: Stop and Clean Up DVWA
+        if: always()
+        run: |
+          docker compose down
 
 
 
