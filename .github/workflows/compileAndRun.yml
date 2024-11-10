@@ -21,8 +21,13 @@ jobs:
       - name: Authenticate and Scan DVWA image with Snyk
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        shell: pwsh
         run: |
-          snyk test
+          # Autenticación en Snyk
+          snyk auth $env:SNYK_TOKEN
+          
+          # Ejecuta el análisis de Snyk
+          snyk test --all-projects --severity-threshold=high
 
       - name: Stop and Clean Up DVWA
         if: always()
