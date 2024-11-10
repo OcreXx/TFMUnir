@@ -17,5 +17,17 @@ jobs:
       - name: Build DVWA Docker image
         run: |
           docker compose up -d
+      - name: Authenticate Snyk
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          docker run --rm -e SNYK_TOKEN=$SNYK_TOKEN snyk/snyk-cli:docker snyk auth $SNYK_TOKEN
+
+      - name: Scan DVWA image with Snyk
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          docker run --rm -e SNYK_TOKEN=$SNYK_TOKEN snyk/snyk-cli:docker snyk container test ghcr.io/digininja/dvwa:latest
+
 
 
