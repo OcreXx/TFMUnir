@@ -29,6 +29,8 @@ jobs:
           # Ejecuta el análisis de Snyk
           snyk code test 
 
+          # Ejecuta el análisis de Snyk
+          snyk test 
       - name: Stop and Clean Up DVWA
         if: always()
         run: |
