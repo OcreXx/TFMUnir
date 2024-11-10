@@ -2,8 +2,8 @@
   "name": "your-username/vulnerable-app",
   "description": "Aplicación vulnerable para pruebas de seguridad",
   "require": {
-    "monolog/monolog": "1.0.0",     // Versión con vulnerabilidades
-    "guzzlehttp/guzzle": "6.0.0",   // Versión antigua con posibles vulnerabilidades
-    "symfony/symfony": "2.5.0"      // Versión con vulnerabilidades conocidas
+    "monolog/monolog": "1.0.0",     
+    "guzzlehttp/guzzle": "6.0.0",   
+    "symfony/symfony": "2.5.0"     
   }
 }
