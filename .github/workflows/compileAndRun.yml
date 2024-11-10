@@ -21,7 +21,7 @@ jobs:
       - name: Authenticate and Scan DVWA image with Snyk
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        shell: pwsh
+        shell: powershell
         run: |
           # Autenticación en Snyk
           snyk auth $env:SNYK_TOKEN
