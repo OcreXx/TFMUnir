@@ -5,8 +5,13 @@ inputs:
     description: 'PHP version para usar'
     required: true
     default: '8.2'
+    
   docker-image-name:
     description: 'Nombre de la imagen Docker'
+    required: true
+    
+  environment-deploy:
+    description: 'Deployment environment (dev, uat, prod)'
     required: true
 
 runs:
@@ -33,5 +38,5 @@ runs:
     - name: Build Docker image
       shell: powershell
       run: |
-        Write-Host "Compilando Imagen Docker"
+        Write-Host "Compilando Imagen Docker config ${{ inputs.environment-deploy }}"
         docker image build --tag dvwa .
