@@ -19,17 +19,21 @@ jobs:
       # Determinar el entorno
       - name: Determine Environment
         id: env-map
+        shell: powershell
         run: |
-          if [ "${GITHUB_REF_NAME}" = "develop" ]; then
-            echo "ENVIRONMENT_DEPLOY=dev" >> $GITHUB_ENV
-          elif [ "${GITHUB_REF_NAME}" = "uat" ]; then
-            echo "ENVIRONMENT_DEPLOY=uat" >> $GITHUB_ENV
-          elif [ "${GITHUB_REF_NAME}" = "main" ]; then
-            echo "ENVIRONMENT_DEPLOY=prod" >> $GITHUB_ENV
-          else
-            echo "Invalid branch for deployment"
+          if ($env:GITHUB_REF_NAME -eq "refs/heads/develop") {
+            Write-Host "ENVIRONMENT_DEPLOY=dev" | Out-File -FilePath $env:GITHUB_ENV -Append
+          }
+          elseif ($env:GITHUB_REF_NAME -eq "refs/heads/uat") {
+            Write-Host "ENVIRONMENT_DEPLOY=uat" | Out-File -FilePath $env:GITHUB_ENV -Append
+          }
+          elseif ($env:GITHUB_REF_NAME -eq "refs/heads/main") {
+            Write-Host "ENVIRONMENT_DEPLOY=prod" | Out-File -FilePath $env:GITHUB_ENV -Append
+          }
+          else {
+            Write-Host "Invalid branch for deployment"
             exit 1
-          fi
+          }
           
       #Fase de Compilación, Pruebas y Construcción
       - name: Build, Test, and Create Docker Image
