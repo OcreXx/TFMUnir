@@ -34,3 +34,4 @@ runs:
       shell: powershell
       run: |
         Write-Host "Compilando Imagen Docker"
+        docker image build --tag dvwa .
