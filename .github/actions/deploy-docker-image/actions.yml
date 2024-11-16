@@ -1,0 +1,23 @@
+name: Deploy Docker Image
+description: Sube la imagen de Docker al repositorio y la despliega
+inputs:
+  docker-image-name:
+    description: 'Nombre de la imagen de Docker'
+    required: true
+    
+runs:
+  using: "composite"
+  steps:
+    - name: Log en Docker Registry
+      shell: powershell
+      run: |
+        Write-Host "Logeandose en el registro de Docker..."
+
+    - name: Subir Imagen Docker
+      shell: powershell
+      run: |
+        Write-Host "Subiendo la imagen... ${{ inputs.docker-image-name }}"
+
+    - name: Desplegar imagen Docker  
+      run: |
+        docker compose up -d
