@@ -11,14 +11,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-   - name: Validate environment input
-      run: |
-        if [[ "${{ inputs.environment }}" != "dev" && \
-              "${{ inputs.environment }}" != "uat" && \
-              "${{ inputs.environment }}" != "prod" ]]; then
-          echo "Error: Invalid environment '${{ inputs.environment-deploy }}'. Allowed values are 'dev', 'uat', 'prod'."
-          exit 1
-        fi
     - name: Log en Docker Registry
       shell: powershell
       run: |
