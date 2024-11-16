@@ -3,7 +3,7 @@ description: Composite action para una pp de php dockerizada
 inputs:
   php-version:
     description: 'PHP version para usar'
-    required: true
+    required: false
     default: '8.2'
     
   docker-image-name:
