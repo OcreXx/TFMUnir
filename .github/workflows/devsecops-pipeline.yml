@@ -27,7 +27,7 @@ jobs:
           elseif ($env:BRANCH_NAME -eq "uat") {
             Write-Host "ENVIRONMENT_DEPLOY=uat" | Out-File -FilePath $env:GITHUB_ENV -Append
           }
-          elseif ($env:BRANCH_NAMEE -eq "main") {
+          elseif ($env:BRANCH_NAME -eq "main") {
             Write-Host "ENVIRONMENT_DEPLOY=prod" | Out-File -FilePath $env:GITHUB_ENV -Append
           }
           else {
