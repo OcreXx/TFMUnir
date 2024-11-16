@@ -28,6 +28,12 @@ runs:
        catch {
         Write-Host "Snyk test ha encontrado vulnerabilidades, continua el escaneo..."
        }
+       finally {
+        # Si Snyk falla (código de salida no cero), continuar con el pipeline
+        if ($LASTEXITCODE -ne 0) {
+          Write-Host "Snyk test ha fallado con código de salida: $LASTEXITCODE, pero el pipeline continuará."
+        }
+       }
     # SAST: Análisis estático de código
     - name: Static Code Analysis (SAST)
       shell: powershell  
