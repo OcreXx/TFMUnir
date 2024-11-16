@@ -1,0 +1,36 @@
+name: PHP Docker CI
+description: Composite action para una pp de php dockerizada
+inputs:
+  php-version:
+    description: 'PHP version para usar'
+    required: true
+    default: '8.2'
+  docker-image-name:
+    description: 'Nombre de la imagen Docker'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up PHP
+      shell: powershell
+      run: |
+        Write-Host "Preparando entorno PHP..."
+
+    - name: Install dependencies
+      shell: powershell
+      run: |
+        Write-Host "Instalando dependencias composer..."
+
+    - name: Run PHP tests
+      shell: powershell
+      run: |
+        Write-Host "Pasando test PHP..."
+
+    - name: Build Docker image
+      shell: powershell
+      run: |
+        Write-Host "Compilando Imagen Docker"
