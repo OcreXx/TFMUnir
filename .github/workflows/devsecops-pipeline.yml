@@ -50,3 +50,9 @@ jobs:
         with:
           docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
           environment-deploy: ${{ env.ENVIRONMENT_DEPLOY }}
+
+      # Apagar la maquina
+      - name: Stop and Clean Up DVWA
+        if: always()
+        run: |
+          docker compose down
