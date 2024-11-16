@@ -53,6 +53,7 @@ jobs:
         uses: ./.github/actions/security-analysis-snyk
         with:
           docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
+          snyk-auth-token: ${{ secrets.SNYK_TOKEN }}
 
       #Fase de Despliegue
       - name: Deploy Application
