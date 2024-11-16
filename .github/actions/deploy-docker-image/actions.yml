@@ -4,10 +4,21 @@ inputs:
   docker-image-name:
     description: 'Nombre de la imagen de Docker'
     required: true
+  environment-deploy:
+    description: 'Deployment environment (dev, uat, prod)'
+    required: true
     
 runs:
   using: "composite"
   steps:
+   - name: Validate environment input
+      run: |
+        if [[ "${{ inputs.environment }}" != "dev" && \
+              "${{ inputs.environment }}" != "uat" && \
+              "${{ inputs.environment }}" != "prod" ]]; then
+          echo "Error: Invalid environment '${{ inputs.environment-deploy }}'. Allowed values are 'dev', 'uat', 'prod'."
+          exit 1
+        fi
     - name: Log en Docker Registry
       shell: powershell
       run: |
@@ -20,4 +31,5 @@ runs:
 
     - name: Desplegar imagen Docker  
       run: |
+        Write-Host "Desplegando app en ${{ inputs.environment-deploy }}"
         docker compose up -d
