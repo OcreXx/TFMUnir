@@ -5,6 +5,10 @@ inputs:
     description: 'Nombre de la imagen Docker a scanear'
     required: true
     
+  snyk-auth-token:
+    description: 'Token para conectarse a snyk'
+    required: true
+    
 runs:
   using: "composite"
   steps:
@@ -12,9 +16,8 @@ runs:
     - name: Authenticate and Scan DVWA image with Snyk
       shell: powershell
       run: |
-        snyk auth $env:SNYK_TOKEN
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  
+        snyk auth  ${{ inputs.snyk-auth-token }}
+
         
     # SCA: Análisis de dependencias
     - name: Dependency Analysis (SCA)
