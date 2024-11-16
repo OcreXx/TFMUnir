@@ -43,7 +43,7 @@ jobs:
       
       #Fase de Compilación, Pruebas y Construcción
       - name: Build, Test, and Create Docker Image
-        uses: ./.github/actions/build-and-test
+        uses: ./.github/actions/php-docker-ci
         with:
           docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
           environment-deploy: ${{ env.ENVIRONMENT_DEPLOY }}
@@ -56,7 +56,7 @@ jobs:
 
       #Fase de Despliegue
       - name: Deploy Application
-        uses: ./.github/actions/deploy
+        uses: ./.github/actions/deploy-docker-image
         with:
           docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
           environment-deploy: ${{ env.ENVIRONMENT_DEPLOY }}
