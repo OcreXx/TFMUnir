@@ -8,23 +8,29 @@ inputs:
 runs:
   using: "composite"
   steps:
+    #Auth: identificarse en snyk
+    - name: Authenticate and Scan DVWA image with Snyk
+      shell: powershell
+      run: |
+        snyk auth $env:SNYK_TOKEN
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  
+        
     # SCA: Análisis de dependencias
     - name: Dependency Analysis (SCA)
+      shell: powershell
       run: snyk test --sarif > snyk-dependencies.sarif
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
+     
     # SAST: Análisis estático de código
     - name: Static Code Analysis (SAST)
+      shell: powershell  
       run: snyk code test . --sarif > snyk-code.sarif
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
     # Docker: Análisis de la imagen
     - name: Docker Image Analysis
+      shell: powershell
       run: snyk container test ${{ inputs.docker-image-name }} --sarif > snyk-docker.sarif
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
 
     # Subir los reportes a GHAS
     - name: Upload Dependency Report to GitHub Advanced Security
