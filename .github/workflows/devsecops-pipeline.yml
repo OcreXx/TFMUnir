@@ -1,0 +1,52 @@
+name: DevSecOps Workflow
+
+on:
+  push:
+    branches:
+      - develop
+      - uat
+      - main
+
+jobs:
+  devsecops:
+    runs-on: self-hosted
+    
+    # Nombre de la imagen
+    env:
+      DOCKER_IMAGE_NAME: dvwa
+      
+    steps:
+      # Determinar el entorno
+      - name: Determine Environment
+        id: env-map
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "develop" ]; then
+            echo "ENVIRONMENT_DEPLOY=dev" >> $GITHUB_ENV
+          elif [ "${GITHUB_REF_NAME}" = "uat" ]; then
+            echo "ENVIRONMENT_DEPLOY=uat" >> $GITHUB_ENV
+          elif [ "${GITHUB_REF_NAME}" = "main" ]; then
+            echo "ENVIRONMENT_DEPLOY=prod" >> $GITHUB_ENV
+          else
+            echo "Invalid branch for deployment"
+            exit 1
+          fi
+          
+      #Fase de Compilación, Pruebas y Construcción
+      - name: Build, Test, and Create Docker Image
+        uses: ./.github/actions/build-and-test
+        with:
+          docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
+          environment-deploy: ${{ env.ENVIRONMENT_DEPLOY }}
+
+      #Fase de Seguridad con Snyk
+      - name: Run Security Analysis
+        uses: ./.github/actions/security-analysis-snyk
+        with:
+          docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
+
+      #Fase de Despliegue
+      - name: Deploy Application
+        uses: ./.github/actions/deploy
+        with:
+          docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
+          environment-deploy: ${{ env.ENVIRONMENT_DEPLOY }}
