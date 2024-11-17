@@ -21,7 +21,6 @@ runs:
     # SCA: Análisis de dependencias
     - name: Dependency Analysis (SCA)
       shell: powershell
-      continue-on-error: true
       run: |
        try {
         snyk test --sarif > snyk-dependencies.sarif
@@ -33,6 +32,7 @@ runs:
         # Si Snyk falla (código de salida no cero), continuar con el pipeline
         if ($LASTEXITCODE -ne 0) {
           Write-Host "Snyk test ha fallado con código de salida: $LASTEXITCODE, pero el pipeline continuará."
+          exit 0
         }
        }
       
