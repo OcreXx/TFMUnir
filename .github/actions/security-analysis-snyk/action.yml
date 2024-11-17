@@ -11,7 +11,6 @@ inputs:
     
 runs:
   using: "composite"
-  continue-on-error: true
   steps:
     #Auth: identificarse en snyk
     - name: Authenticate and Scan DVWA image with Snyk
@@ -22,6 +21,7 @@ runs:
     # SCA: Análisis de dependencias
     - name: Dependency Analysis (SCA)
       shell: powershell
+      continue-on-error: true
       run: |
        try {
         snyk test --sarif > snyk-dependencies.sarif
