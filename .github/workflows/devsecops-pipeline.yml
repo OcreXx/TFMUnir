@@ -1,11 +1,12 @@
 name: DevSecOps Workflow
 
 on:
-  push:
-    branches:
-      - develop
-      - uat
-      - main
+  #push:
+    #branches:
+      #- develop
+      #- uat
+      #- main
+  workflow_dispatch:
 
 jobs:
   devsecops:
