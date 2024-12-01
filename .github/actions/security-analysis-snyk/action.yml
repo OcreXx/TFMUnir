@@ -46,10 +46,10 @@ runs:
           Write-Host "Snyk code ha encontrado vulnerabilidades en el SAST, continua el escaneo..."
         }
         finally {
-        # Si Snyk falla (código de salida no cero), continuar con el pipeline
-        if ($LASTEXITCODE -ne 0) {
-          exit 0
-        }
+          # Si Snyk falla (código de salida no cero), continuar con el pipeline
+          if ($LASTEXITCODE -ne 0) {
+            exit 0
+          }
        }
     # Docker: Análisis de la imagen
     - name: Docker Image Analysis
@@ -62,10 +62,10 @@ runs:
           Write-Host "Snyk code ha encontrado vulnerabilidades en la imagen Docker, continua el escaneo..."
         }
         finally {
-        # Si Snyk falla (código de salida no cero), continuar con el pipeline
-        if ($LASTEXITCODE -ne 0) {
-          exit 0
-        }
+          # Si Snyk falla (código de salida no cero), continuar con el pipeline
+          if ($LASTEXITCODE -ne 0) {
+            exit 0
+          }
        }
         
     # Subir los reportes a GHAS
