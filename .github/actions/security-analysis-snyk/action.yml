@@ -23,7 +23,7 @@ runs:
       shell: powershell
       run: |
         try {
-          snyk test --sarif > snyk-dependencies.sarif
+          snyk test --sarif-file-output=snyk-dependencies.sarif
         }    
         catch {
           Write-Host "Snyk test ha encontrado vulnerabilidades en el analisis de dependencias, continua el escaneo..."
@@ -38,7 +38,7 @@ runs:
       shell: powershell  
       run: |
         try {
-          snyk code test . --sarif > snyk-code.sarif
+          snyk code test . --sarif-file-output=snyk-code.sarif
         }         
         catch {
           Write-Host "Snyk code ha encontrado vulnerabilidades en el SAST, continua el escaneo..."
@@ -54,7 +54,7 @@ runs:
       shell: powershell
       run: |
         try {
-          snyk container test ${{ inputs.docker-image-name }} --sarif > snyk-docker.sarif
+          snyk container test ${{ inputs.docker-image-name }} --sarif-file-output=snyk-docker.sarif
         }         
         catch {
           Write-Host "Snyk code ha encontrado vulnerabilidades en la imagen Docker, continua el escaneo..."
@@ -63,4 +63,19 @@ runs:
         if ($LASTEXITCODE -ne 0) {
           exit 0
         }
-        
+
+      # Subir los reportes a GHAS
+      - name: Upload Dependency Report to GitHub Advanced Security
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk-dependencies.sarif
+  
+      - name: Upload SAST Report to GitHub Advanced Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk-code.sarif
+  
+      - name: Upload Docker Report to GitHub Advanced Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk-docker.sarif
