@@ -3,20 +3,23 @@ const fs = require('fs');
 // Función para actualizar el campo "security-severity"
 function updateSecuritySeverity(fileName) {
   try {
-    // Leer el archivo JSON
+    // Leer el archivo sarif
     const data = fs.readFileSync(fileName, 'utf8');
     const json = JSON.parse(data);
 
-    // Actualizar el campo "security-severity" si es null
+    // Actualizar campos
     const updatedJson = JSON.stringify(
         json,
         (key, value) => {
-          if ((key === 'security-severity' || key === 'cvssv3_baseScore') && (value === "null" || value === null)) {
-            return 1;
+          if (key === 'security-severity' && value === "null" ) {
+            return "1"; 
+          }
+          if (key === 'cvssv3_baseScore' && value === null) {
+            return 1; 
           }
           return value;
         },
-        2 // Formatear con indentación
+        2 
       );
 
     // Sobrescribir el archivo original
