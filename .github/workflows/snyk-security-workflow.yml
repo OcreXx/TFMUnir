@@ -19,6 +19,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --sarif-file-output=snyk-dependencies.sarif
+          command: code test
 
       # 3. Análisis estático de código (SAST)
       - name: Snyk Code Test (SAST)
