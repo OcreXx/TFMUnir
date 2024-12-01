@@ -19,7 +19,6 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --sarif-file-output=snyk-dependencies.sarif
-          command: code test
 
       # 3. Análisis estático de código (SAST)
       - name: Snyk Code Test (SAST)
@@ -28,7 +27,8 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: code test --sarif-file-output=snyk-code.sarif
+          args: --sarif-file-output=snyk-code.sarif
+          command: code test
 
       # 4. Análisis de la imagen Docker (Container Security)
       - name: Snyk Container Test
@@ -37,7 +37,8 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: container test <docker-image-name> --sarif-file-output=snyk-container.sarif
+          args:  --sarif-file-output=snyk-container.sarif
+          command: container test dvwa
 
 
       # 5. Subir resultados a GHAS (GitHub Advanced Security)
