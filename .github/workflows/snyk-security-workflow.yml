@@ -1,4 +1,4 @@
-name: Example workflow for PHP using Snyk
+name: Snyk analysis
 on: 
    workflow_dispatch:
 permissions:
@@ -8,15 +8,43 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
+      # 1. Checkout del código
+      - uses: actions/checkout@v3
+
+      # 2. Autenticación y análisis de dependencias (SCA)
+      - name: Snyk Test (SCA)
         uses: snyk/actions/php@master
-        continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=snyk.sarif
-      - name: Upload result to GitHub Code Scanning
+          args: --sarif-file-output=snyk-dependencies.sarif
+
+      # 3. Análisis estático de código (SAST)
+      - name: Snyk Code Test (SAST)
+        run: |
+          snyk code test --sarif-file-output=snyk-code.sarif
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      # 4. Análisis de la imagen Docker (Snyk Container)
+      - name: Snyk Container Test
+        run: |
+          snyk container test <docker-image-name> --sarif-file-output=snyk-container.sarif
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      # 5. Subir resultados a GHAS (GitHub Advanced Security)
+      - name: Upload SARIF for Dependencies (SCA)
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: snyk-dependencies.sarif
+
+      - name: Upload SARIF for Static Code Analysis (SAST)
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk-code.sarif
+
+      - name: Upload SARIF for Container Analysis
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk-container.sarif
