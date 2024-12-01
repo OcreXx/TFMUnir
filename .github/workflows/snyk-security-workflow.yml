@@ -1,6 +1,9 @@
 name: Example workflow for PHP using Snyk
 on: 
    workflow_dispatch:
+permissions:
+  contents: write
+  security-events: write 
 jobs:
   security:
     runs-on: ubuntu-latest
