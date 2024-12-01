@@ -1,5 +1,6 @@
 name: Example workflow for PHP using Snyk
-on: push
+on: 
+   workflow_dispatch:
 jobs:
   security:
     runs-on: ubuntu-latest
