@@ -33,7 +33,7 @@ runs:
           Write-Host "Snyk test ha encontrado vulnerabilidades en el analisis de dependencias, continua el escaneo..."
         } 
         # Si Snyk falla (código de salida no cero), continuar con el pipeline
-        node ./.github/actions/security-analysis/updateSarif.js snyk-dependencies.sarif
+        node ./.github/actions/security-analysis-snyk/fix-severity-null.js snyk-dependencies.sarif
         if ($LASTEXITCODE -ne 0) {
           exit 0
         }
@@ -50,7 +50,7 @@ runs:
           Write-Host "Snyk code ha encontrado vulnerabilidades en el SAST, continua el escaneo..."
         }
         # Si Snyk falla (codigo de salida no cero), continuar con el pipeline
-        node ./.github/actions/security-analysis/updateSarif.js snyk-code.sarif
+        node ./.github/actions/security-analysis-snyk/fix-severity-null.js snyk-code.sarif
         if ($LASTEXITCODE -ne 0) {
           exit 0
         }
@@ -68,7 +68,7 @@ runs:
           Write-Host "Snyk code ha encontrado vulnerabilidades en la imagen Docker, continua el escaneo..."
         }
         # Si Snyk falla (codigo de salida no cero), continuar con el pipeline
-        node ./.github/actions/security-analysis/updateSarif.js snyk-docker.sarif
+        node ./.github/actions/security-analysis-snyk/fix-severity-null.js snyk-docker.sarif
         if ($LASTEXITCODE -ne 0) {
           exit 0
         }
