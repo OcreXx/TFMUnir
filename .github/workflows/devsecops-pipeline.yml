@@ -59,6 +59,7 @@ jobs:
         with:
           docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
           snyk-auth-token: ${{ secrets.SNYK_TOKEN }}
+          dockerfile-path: Dockerfile
         
       #Fase de Despliegue
       - name: Deploy Application
