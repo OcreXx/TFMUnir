@@ -54,26 +54,12 @@ jobs:
           environment-deploy: ${{ env.ENVIRONMENT_DEPLOY }}
 
       #Fase de Seguridad con Snyk
-      #- name: Run Security Analysis
-       # uses: ./.github/actions/security-analysis-snyk
-       # with:
-        #  docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
-        #  snyk-auth-token: ${{ secrets.SNYK_TOKEN }}
-      # Subir los reportes a GHAS
-      - name: Upload Dependency Report to GitHub Advanced Security
-        uses: github/codeql-action/upload-sarif@v2
+      - name: Run Security Analysis
+        uses: ./.github/actions/security-analysis-snyk
         with:
-          sarif_file: snyk-dependencies.sarif
-  
-      #- name: Upload SAST Report to GitHub Advanced Security
-      #  uses: github/codeql-action/upload-sarif@v3
-       # with:
-          #sarif_file: snyk-code.sarif
-  
-      #- name: Upload Docker Report to GitHub Advanced Security
-       # uses: github/codeql-action/upload-sarif@v3
-       # with:
-          #sarif_file: snyk-docker.sarif
+          docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
+          snyk-auth-token: ${{ secrets.SNYK_TOKEN }}
+        
       #Fase de Despliegue
       - name: Deploy Application
         uses: ./.github/actions/deploy-docker-image
