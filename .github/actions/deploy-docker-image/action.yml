@@ -22,6 +22,7 @@ runs:
         Write-Host "Subiendo la imagen... ${{ inputs.docker-image-name }}"
 
     - name: Desplegar imagen Docker  
+      shell: powershell
       run: |
         Write-Host "Desplegando app en ${{ inputs.environment-deploy }}"
         docker compose up -d
