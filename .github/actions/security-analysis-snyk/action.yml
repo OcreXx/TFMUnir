@@ -8,6 +8,10 @@ inputs:
   snyk-auth-token:
     description: 'Token para conectarse a snyk'
     required: true
+
+  dockerfile-path:
+    description: 'Ruta del Dockerfile para el análisis de Docker'
+    required: true
     
 runs:
   using: "composite"
@@ -58,7 +62,7 @@ runs:
       shell: powershell
       run: |
         try {
-          snyk container test ${{ inputs.docker-image-name }} --sarif-file-output=snyk-docker.sarif
+          snyk container test ${{ inputs.docker-image-name }} --file=${{ inputs.dockerfile-path }} --sarif-file-output=snyk-docker.sarif
         }         
         catch {
           Write-Host "Snyk code ha encontrado vulnerabilidades en la imagen Docker, continua el escaneo..."
