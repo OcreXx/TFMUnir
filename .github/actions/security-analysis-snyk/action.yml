@@ -63,19 +63,18 @@ runs:
         if ($LASTEXITCODE -ne 0) {
           exit 0
         }
-
-      # Subir los reportes a GHAS
-      - name: Upload Dependency Report to GitHub Advanced Security
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk-dependencies.sarif
+        
+    - name: Upload Dependency Report to GitHub Advanced Security
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: snyk-dependencies.sarif
   
-      - name: Upload SAST Report to GitHub Advanced Security
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: snyk-code.sarif
+    - name: Upload SAST Report to GitHub Advanced Security
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: snyk-code.sarif
   
-      - name: Upload Docker Report to GitHub Advanced Security
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: snyk-docker.sarif
+    - name: Upload Docker Report to GitHub Advanced Security
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: snyk-docker.sarif
