@@ -8,7 +8,7 @@
                   {
                      "physicalLocation": {
                         "artifactLocation": {
-                           "uri": ""
+                           "uri": "composer.json"
                         },
                         
                         "region": {
