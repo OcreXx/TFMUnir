@@ -67,7 +67,10 @@ jobs:
         with:
           docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
           environment-deploy: ${{ env.ENVIRONMENT_DEPLOY }}
-
+      # Fase DAST con ZAP
+      - name: Run ZAP DVWA Scan
+        uses: ./.github/actions/zap-dvwa-scan
+        
       # Apagar la maquina
       #- name: Stop and Clean Up DVWA
         #if: always()
