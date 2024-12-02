@@ -52,7 +52,10 @@ jobs:
         with:
           docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
           environment-deploy: ${{ env.ENVIRONMENT_DEPLOY }}
-
+      - name: Upload Docker Report to GitHub Advanced Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: zap-report.json
       #Fase de Seguridad con Snyk
       #- name: Run Security Analysis
         #uses: ./.github/actions/security-analysis-snyk
