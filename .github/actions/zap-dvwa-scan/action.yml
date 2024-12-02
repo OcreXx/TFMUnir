@@ -1,0 +1,16 @@
+name: ZAP auto DAST Scan
+description: Pasa el dast scan de acuerdo al archivo de configuración
+
+    
+runs:
+  using: "composite"
+  steps:
+    - name: Run OWASP ZAP Automation Framework
+    shell: powershell
+    run: |
+      docker run --rm ^
+        -v "${{ github.action_path }}/dvwa-scan-plan.yml:/zap/zap-plan.yaml" ^
+        -v "$env:GITHUB_WORKSPACE:/zap/reports" ^
+        --network="host" ^
+        owasp/zap2docker-stable zap.sh -cmd -autorun /zap/zap-plan.yaml
+        
