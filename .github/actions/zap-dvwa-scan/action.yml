@@ -16,7 +16,7 @@ runs:
     - name: Pull ZAP Docker image
       shell: powershell
       run: |
-          docker pull owasp/zap2docker-stable
+          docker pull zaproxy/zap-stable
           
     # Pasar scan
     - name: Run OWASP ZAP Automation Framework
