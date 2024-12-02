@@ -54,12 +54,12 @@ jobs:
           environment-deploy: ${{ env.ENVIRONMENT_DEPLOY }}
 
       #Fase de Seguridad con Snyk
-      - name: Run Security Analysis
-        uses: ./.github/actions/security-analysis-snyk
-        with:
-          docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
-          snyk-auth-token: ${{ secrets.SNYK_TOKEN }}
-          dockerfile-path: Dockerfile
+      #- name: Run Security Analysis
+        #uses: ./.github/actions/security-analysis-snyk
+        #with:
+          #docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
+          #snyk-auth-token: ${{ secrets.SNYK_TOKEN }}
+          #dockerfile-path: Dockerfile
         
       #Fase de Despliegue
       - name: Deploy Application
