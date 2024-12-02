@@ -11,6 +11,14 @@ runs:
         if (-not (Test-Path -Path "zap")) {
           New-Item -ItemType Directory -Force -Path "zap"
         }
+        
+    # Hacer pull de la imagen de ZAP
+    - name: Pull ZAP Docker image
+      shell: powershell
+      run: |
+          docker pull owasp/zap2docker-stable
+          
+    # Pasar scan
     - name: Run OWASP ZAP Automation Framework
       shell: powershell
       run: |
@@ -19,7 +27,8 @@ runs:
           -v "$env:GITHUB_WORKSPACE/zap:/zap/reports" `
           --network="host" `
           owasp/zap2docker-stable zap.sh -cmd -autorun /zap/zap-plan.yaml
-          
+
+    #Subir artefacto
     - name: Subir artefactos de ZAP
       uses: actions/upload-artifact@v3
       with:
