@@ -22,7 +22,7 @@ runs:
     - name: Run OWASP ZAP Automation Framework
       shell: powershell
       run: |
-        docker run --rm `
+        docker run `
           -v "${{ github.action_path }}/dvwa-scan-plan.yml:/zap/zap-plan.yaml" `
           -v "./zap:/zap/reports" `
           --network="host" `
