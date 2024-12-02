@@ -77,8 +77,7 @@ jobs:
 - parameters:
     template: "sarif-json"
     reportTitle: "ZAP Scanning Report"
-    reportDir: "/zap/reports"
-    reportFile: "zap-report.sarif"
+    reportFile: "zap-report"
     reportDescription: "Reporte en formato sarif del DAST"
   name: "report"
   type: "report"
