@@ -26,7 +26,7 @@ runs:
           -v "${{ github.action_path }}/dvwa-scan-plan.yml:/zap/zap-plan.yaml" `
           -v "$env:GITHUB_WORKSPACE/zap:/zap/reports" `
           --network="host" `
-          owasp/zap2docker-stable zap.sh -cmd -autorun /zap/zap-plan.yaml
+          zaproxy/zap-stable zap.sh -cmd -autorun /zap/zap-plan.yaml
 
     #Subir artefacto
     - name: Subir artefactos de ZAP
