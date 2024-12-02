@@ -24,7 +24,7 @@ runs:
       run: |
         docker run `
           -v "${{ github.action_path }}/dvwa-scan-plan.yml:/zap/zap-plan.yaml" `
-          -v "./zap:/zap/reports" `
+          -v "./zap:/zap/reports:rw" `
           --network="host" `
           zaproxy/zap-stable zap.sh -cmd -autorun /zap/zap-plan.yaml
 
