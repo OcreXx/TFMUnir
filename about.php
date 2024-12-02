@@ -43,7 +43,7 @@ $page[ 'body' ] .= "
 	<p>Damn Vulnerable Web Application (DVWA) is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.</p>
+	(at your option) any later version. Fake API KEY ZPVPh3PnX0K1FveXryoceL7Cscpvng5ePCMvv9ekkLsxj22Yg4FPE4xxlX9EY3D6DsUZYh1JGARCp6jtY6UPVEhwD9tq8eUvqkctMSHNYgAUTrOwoA8j0yCpDn0RjZ8h</p>
 
 	<h2>Development</h2>
 	<p>Everyone is welcome to contribute and help make DVWA as successful as it can be. All contributors can have their name and link (if they wish) placed in the credits section. To contribute pick an Issue from the Project Home to work on or submit a patch to the Issues list.</p>
