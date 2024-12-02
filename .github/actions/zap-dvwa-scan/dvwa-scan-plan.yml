@@ -75,7 +75,7 @@ jobs:
   name: "passiveScan-wait"
   type: "passiveScan-wait"
 - parameters:
-    template: "sarif"
+    template: "sarif-json"
     reportTitle: "ZAP Scanning Report"
     reportDir: "/zap/reports"
     reportFile: "zap-report.sarif"
