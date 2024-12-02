@@ -1,16 +1,27 @@
 name: ZAP auto DAST Scan
 description: Pasa el dast scan de acuerdo al archivo de configuración
-
-    
+  
 runs:
   using: "composite"
   steps:
+    - name: Crear carpeta zap en la raíz del repositorio
+      shell: powershell
+      run: |
+        # Crear la carpeta zap si no existe
+        if (-not (Test-Path -Path "zap")) {
+          New-Item -ItemType Directory -Force -Path "zap"
+        }
     - name: Run OWASP ZAP Automation Framework
-    shell: powershell
-    run: |
-      docker run --rm ^
-        -v "${{ github.action_path }}/dvwa-scan-plan.yml:/zap/zap-plan.yaml" ^
-        -v "$env:GITHUB_WORKSPACE:/zap/reports" ^
-        --network="host" ^
-        owasp/zap2docker-stable zap.sh -cmd -autorun /zap/zap-plan.yaml
-        
+      shell: powershell
+      run: |
+        docker run --rm ^
+          -v "${{ github.action_path }}/dvwa-scan-plan.yml:/zap/zap-plan.yaml" ^
+          -v "$env:GITHUB_WORKSPACE/zap:/zap/reports" ^
+          --network="host" ^
+          owasp/zap2docker-stable zap.sh -cmd -autorun /zap/zap-plan.yaml
+          
+    - name: Subir artefactos de ZAP
+      uses: actions/upload-artifact@v3
+      with:
+        name: zap-reports
+        path: zap/*
