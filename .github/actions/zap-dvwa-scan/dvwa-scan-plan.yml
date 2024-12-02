@@ -13,7 +13,6 @@ env:
     - "http://localhost:4280/phpinfo.php"
     - "http://localhost:4280/security.php"
     - "http://localhost:4280/vulnerabilities/csrf.*"
-    - "http://localhost:4280/instructions.php
     authentication:
       method: "form"
       parameters:
