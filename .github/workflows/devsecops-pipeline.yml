@@ -45,17 +45,18 @@ jobs:
       #extraemos los actions
       - name: Checkout code
         uses: actions/checkout@v3
-      
+        
+      - name: Upload Docker Report to GitHub Advanced Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: zap-report.json
       #Fase de Compilación, Pruebas y Construcción
       - name: Build, Test, and Create Docker Image
         uses: ./.github/actions/php-docker-ci
         with:
           docker-image-name: ${{ env.DOCKER_IMAGE_NAME }}
           environment-deploy: ${{ env.ENVIRONMENT_DEPLOY }}
-      - name: Upload Docker Report to GitHub Advanced Security
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: zap-report.json
+
       #Fase de Seguridad con Snyk
       #- name: Run Security Analysis
         #uses: ./.github/actions/security-analysis-snyk
