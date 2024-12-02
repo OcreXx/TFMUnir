@@ -75,8 +75,10 @@ jobs:
   name: "passiveScan-wait"
   type: "passiveScan-wait"
 - parameters:
-    template: "modern"
+    template: "sarif"
     reportTitle: "ZAP Scanning Report"
-    reportDescription: ""
+    reportDir: "/zap/reports"
+    reportFile: "zap-report.sarif"
+    reportDescription: "Reporte en formato sarif del DAST"
   name: "report"
   type: "report"
