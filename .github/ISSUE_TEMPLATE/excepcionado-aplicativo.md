@@ -16,9 +16,3 @@ body:
     value: |
       '##CSV:'
       vulnId, vulnName, vulnCategory, vulnOrigin, remediationLimitDate
-      
-### Información Adicional
-- **Fecha de solicitud**: [YYYY-MM-DD]
-- **Equipo responsable**: [Nombre del equipo]
-- **Duración estimada de la excepción**: [Días/Semanas/Meses]
-- **Razonamiento**: [Explicación del por qué es necesaria la excepción]
