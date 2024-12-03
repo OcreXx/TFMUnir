@@ -1,5 +1,6 @@
 ---
 name: Excepción de Seguridad
+about: Crear una excepcion de seguridad
 description: Registro para excepciones de seguridad.
 labels:
   - SASTExcepcion
